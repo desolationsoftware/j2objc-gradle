@@ -76,7 +76,7 @@ class J2objcConfig {
     /**
      * Exact required version of j2objc.
      */
-    String j2objcVersion = '1.0.2'
+    String j2objcVersion = '1.1'
     //String j2objcVersion = '0.9.8.2.1'
 
     /**
