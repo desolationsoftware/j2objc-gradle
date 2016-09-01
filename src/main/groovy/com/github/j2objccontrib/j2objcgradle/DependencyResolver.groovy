@@ -166,12 +166,12 @@ class DependencyResolver {
             throw new InvalidUserDataException(message)
         }
 
-        if (!beforeProject.plugins.hasPlugin(J2objcPlugin)) {
-            String message = "$beforeProject does not use the J2ObjC Gradle Plugin.\n" +
-                             "dependsOnJ2objcLib can be used only with another project that\n" +
-                             "itself uses the J2ObjC Gradle Plugin."
-            throw new InvalidUserDataException(message)
-        }
+//        if (!beforeProject.plugins.hasPlugin(J2objcPlugin)) {
+//            String message = "$beforeProject does not use the J2ObjC Gradle Plugin.\n" +
+//                             "dependsOnJ2objcLib can be used only with another project that\n" +
+//                             "itself uses the J2ObjC Gradle Plugin."
+//            throw new InvalidUserDataException(message)
+//        }
 
         // Build and test the java/objc libraries and the objc headers of
         // the other project first.

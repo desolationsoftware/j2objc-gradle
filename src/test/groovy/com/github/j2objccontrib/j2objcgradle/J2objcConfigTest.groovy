@@ -103,20 +103,6 @@ class J2objcConfigTest {
     }
 
     @Test
-    void testFinalConfigure_MacOSX_MissingJ2ObjCHome() {
-        Utils.setFakeOSMacOSX()
-        J2objcConfig ext = new J2objcConfig(proj)
-
-        expectedException.expect(InvalidUserDataException.class)
-        expectedException.expectMessage(StringContains.containsString('J2ObjC Home not set'));
-
-        assert !ext.finalConfigured
-        ext.testingOnlyPrepConfigurations()
-        ext.finalConfigure()
-        assert ext.finalConfigured
-    }
-
-    @Test
     void testFinalConfigure_LinuxTranslateOnlyMode() {
         Utils.setFakeOSLinux()
         J2objcConfig ext = new J2objcConfig(proj)
