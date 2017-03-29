@@ -91,6 +91,6 @@ project.tasks.all {
 }
 
 buildStamp {
-    repoBaseUrl "https://github.com/getsocial-rnd/j2objc-gradle/"
+    repoBaseUrl "https://github.com/getsocial-rnd/j2objc-gradle/commit/"
     packageName "com.github.j2objccontrib.j2objcgradle"
 }
