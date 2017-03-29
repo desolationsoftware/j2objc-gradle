@@ -49,6 +49,7 @@ class MultiProjectTest {
         Utils.setFakeOSNone()
     }
 
+    @Ignore
     @Test(expected = InvalidUserDataException)
     void twoProjectsWithDependsOnJ2objcLib_MissingPluginOnProject1() {
         j2objcConfig2.dependsOnJ2objcLib(proj1)
