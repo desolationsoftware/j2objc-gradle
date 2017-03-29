@@ -76,14 +76,14 @@ class J2objcConfig {
     /**
      * Exact required version of j2objc.
      */
-    String j2objcVersion = '1.1'
+    String j2objcVersion = '1.3'
     //String j2objcVersion = '0.9.8.2.1'
 
     /**
      * Don't verify J2ObjC binaries.  Useful for testing and power-users
      * who know what they are doing and may wish to use a custom-build J2ObjC distribution.
      */
-    boolean skipJ2objcVerification = false;
+    boolean skipJ2objcVerification = true;
 
     /**
      * Where to assemble generated main libraries.
