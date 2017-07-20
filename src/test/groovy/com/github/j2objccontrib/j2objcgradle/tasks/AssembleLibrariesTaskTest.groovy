@@ -18,8 +18,8 @@ package com.github.j2objccontrib.j2objcgradle.tasks
 
 import com.github.j2objccontrib.j2objcgradle.J2objcConfig
 import org.gradle.api.Project
-import org.junit.Before
-import org.junit.Test
+import org.gradle.internal.impldep.org.junit.Before
+import org.gradle.internal.impldep.org.junit.Test
 
 /**
  * TestTask tests.

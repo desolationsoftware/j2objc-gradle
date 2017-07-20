@@ -35,9 +35,10 @@ class PackLibrariesTask extends DefaultTask {
     // Generated ObjC binaries
     @InputFiles
     ConfigurableFileCollection getLibrariesFiles() {
-        String staticLibraryPath = "${project.buildDir}/binaries/${project.name}-j2objcStaticLibrary"
+        String staticLibraryPath = "${project.buildDir}/libs/${project.name}-j2objc/static"
+        String lowerCaseBuildType = buildType.toLowerCase()
         return project.files(getActiveArchs().collect { String arch ->
-            "$staticLibraryPath/$arch$buildType/lib${project.name}-j2objc.a"
+            "$staticLibraryPath/$arch/$lowerCaseBuildType/lib${project.name}-j2objc.a"
         })
     }
 
@@ -58,7 +59,7 @@ class PackLibrariesTask extends DefaultTask {
     @TaskAction
     void packLibraries() {
         Utils.requireMacOSX('j2objcPackLibraries task')
-        assert buildType in ['Debug', 'Release']
+        assert buildType in ['debug', 'release']
 
         Utils.projectDelete(project, getOutputLibDirFile())
         getOutputLibDirFile().mkdirs()

@@ -23,9 +23,12 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import org.gradle.api.file.CopySpec
 import org.gradle.api.internal.file.copy.DefaultCopySpec
+import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.WorkResult
+import org.gradle.nativeplatform.test.tasks.RunTestExecutable
 import org.gradle.process.ExecResult
 import org.gradle.process.ExecSpec
+import org.gradle.process.internal.DefaultExecHandleBuilder
 import org.gradle.process.internal.ExecHandleBuilder
 import org.gradle.util.ConfigureUtil
 
@@ -51,7 +54,7 @@ class MockProjectExec {
     private static final String projectDirCanonicalized = '/PROJECT_DIR'
 
     private MockFor mockForProj = new MockFor(Project)
-    private ExecSpec execSpec = new ExecHandleBuilder()
+    private ExecSpec execSpec = new DefaultExecHandleBuilder()
     private GroovyObject proxyInstance
 
     MockProjectExec(Project project, String j2objcHome) {
@@ -259,7 +262,7 @@ class MockProjectExec {
 
         mockForProj.demand.exec { Closure closure ->
 
-            ExecSpec execSpec = new ExecHandleBuilder()
+            ExecSpec execSpec = new DefaultExecHandleBuilder();
             // This prevents the test error: "Cannot convert relative path . to an absolute file."
 
             execSpec.setWorkingDir(initWorkingDir)

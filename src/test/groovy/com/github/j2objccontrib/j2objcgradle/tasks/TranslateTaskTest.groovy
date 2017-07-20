@@ -20,8 +20,9 @@ import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.api.tasks.incremental.IncrementalTaskInputs
 import org.gradle.api.tasks.incremental.InputFileDetails
-import org.junit.Before
-import org.junit.Test
+import org.gradle.internal.impldep.org.junit.Before
+import org.gradle.internal.impldep.org.junit.Test
+
 /**
  * TranslateTask tests.
  */

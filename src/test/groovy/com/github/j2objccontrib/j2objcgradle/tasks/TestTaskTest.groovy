@@ -20,12 +20,12 @@ import com.github.j2objccontrib.j2objcgradle.J2objcConfig
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
+import org.gradle.internal.impldep.org.junit.After
+import org.gradle.internal.impldep.org.junit.Before
+import org.gradle.internal.impldep.org.junit.Rule
+import org.gradle.internal.impldep.org.junit.Test
+import org.gradle.internal.impldep.org.junit.rules.ExpectedException
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.rules.ExpectedException
 
 /**
  * TestTask tests.

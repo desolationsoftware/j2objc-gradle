@@ -22,14 +22,13 @@ import groovy.transform.CompileStatic
 import groovy.transform.TypeCheckingMode
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
+import org.gradle.internal.impldep.org.junit.Before
+import org.gradle.internal.impldep.org.junit.Rule
+import org.gradle.internal.impldep.org.junit.Test
+import org.gradle.internal.impldep.org.junit.rules.ExpectedException
+import org.gradle.internal.impldep.org.testng.Assert
 import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.util.ConfigureUtil
-import org.hamcrest.core.StringContains
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
-import org.junit.rules.ExpectedException
-import org.testng.Assert
 
 /**
  * J2objcConfig tests.

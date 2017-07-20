@@ -5,13 +5,14 @@ import com.github.j2objccontrib.j2objcgradle.tasks.Utils
 import groovy.util.logging.Slf4j
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
+import org.gradle.internal.impldep.org.junit.After
+import org.gradle.internal.impldep.org.junit.Before
+import org.gradle.internal.impldep.org.junit.Ignore
+import org.gradle.internal.impldep.org.junit.Test
 import org.gradle.nativeplatform.NativeBinarySpec
 import org.gradle.nativeplatform.NativeLibraryBinary
 import org.gradle.platform.base.BinarySpec
-import org.junit.After
-import org.junit.Before
-import org.junit.Ignore
-import org.junit.Test
+
 
 /**
  * Integration tests with multiple projects.

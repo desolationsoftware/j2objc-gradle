@@ -29,11 +29,6 @@ buildscript {
 
 plugins {
     id "com.gradle.plugin-publish" version "0.9.0"
-    // Outputs a BuildInfo.java file with information about the git repo;
-    // also fails plugin publishing if your git working directory is unclean.
-    // Note this only enforces that the code you are publishing is committed
-    // to your local repo; you have to make sure to push it upstream.
-    id "com.madvay.tools.build.gitbuildinfo" version "0.1.2-alpha"
 }
 apply plugin: 'groovy'
 apply plugin: "com.gradle.plugin-publish"
@@ -42,18 +37,12 @@ dependencies {
     compile gradleApi()
 }
 
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.8'
-    distributionUrl = 'https://services.gradle.org/distributions/gradle-2.8-all.zip'
-}
-
 group = 'com.github.j2objccontrib.j2objcgradle'
 
 // A suffix of -SNAPSHOT means this is not an official release of the
 // system, but built from an intermediate source tree.  Instructions:
 // https://github.com/j2objc-contrib/j2objc-gradle/blob/master/CONTRIBUTING.md#publishing-and-versioning
-version = '0.6.4.1'
+version = '0.6.6.2'
 
 test {
     testLogging {
@@ -88,9 +77,4 @@ project.tasks.all {
     if (it.name == 'publishPluginGroovyDocsJar' || it.name == 'publishPluginJavaDocsJar') {
         it.from(project.file('src/main/resources/'))
     }
-}
-
-buildStamp {
-    repoBaseUrl "https://github.com/getsocial-rnd/j2objc-gradle/commit/"
-    packageName "com.github.j2objccontrib.j2objcgradle"
 }

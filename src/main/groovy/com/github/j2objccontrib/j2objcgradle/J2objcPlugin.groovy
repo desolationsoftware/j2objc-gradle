@@ -21,11 +21,9 @@ import com.github.j2objccontrib.j2objcgradle.tasks.AssembleResourcesTask
 import com.github.j2objccontrib.j2objcgradle.tasks.AssembleSourceTask
 import com.github.j2objccontrib.j2objcgradle.tasks.CycleFinderTask
 import com.github.j2objccontrib.j2objcgradle.tasks.PackLibrariesTask
-import com.github.j2objccontrib.j2objcgradle.tasks.PodspecTask
 import com.github.j2objccontrib.j2objcgradle.tasks.TestTask
 import com.github.j2objccontrib.j2objcgradle.tasks.TranslateTask
 import com.github.j2objccontrib.j2objcgradle.tasks.Utils
-import com.github.j2objccontrib.j2objcgradle.tasks.XcodeTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -40,18 +38,19 @@ class J2objcPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        String version = BuildInfo.VERSION
-        String commit = BuildInfo.GIT_COMMIT
-        String url = BuildInfo.URL
-        String timestamp = BuildInfo.TIMESTAMP
-        project.logger.info("j2objc-gradle plugin: Version $version, Built: $timestamp, Commit: $commit, URL: $url")
-        if (!BuildInfo.GIT_IS_CLEAN) {
-            project.logger.error('WARNING: j2objc-gradle plugin was built with local git modification: ' +
-                                 'https://github.com/j2objc-contrib/j2objc-gradle/releases')
-        } else if (version.contains('SNAPSHOT')) {
-            project.logger.warn('WARNING: j2objc-gradle plugin was built with SNAPSHOT version: ' +
-                                'https://github.com/j2objc-contrib/j2objc-gradle/releases')
-        }
+//        String version = BuildInfo.VERSION
+//        String commit = BuildInfo.GIT_COMMIT
+//        String url = BuildInfo.URL
+//        String timestamp = BuildInfo.TIMESTAMP
+//
+//        project.logger.info("j2objc-gradle plugin: Version $version, Built: $timestamp, Commit: $commit, URL: $url")
+//        if (!BuildInfo.GIT_IS_CLEAN) {
+//            project.logger.error('WARNING: j2objc-gradle plugin was built with local git modification: ' +
+//                                 'https://github.com/j2objc-contrib/j2objc-gradle/releases')
+//        } else if (version.contains('SNAPSHOT')) {
+//            project.logger.warn('WARNING: j2objc-gradle plugin was built with SNAPSHOT version: ' +
+//                                'https://github.com/j2objc-contrib/j2objc-gradle/releases')
+//        }
 
         // This avoids a lot of "project." prefixes, such as "project.tasks.create"
         project.with {
@@ -171,20 +170,20 @@ class J2objcPlugin implements Plugin<Project> {
             // TODO: copy and run debug and release tests within j2objcTestContent at the
             //       same time instead of destroying and recreating j2objcTestContent twice
             tasks.create(name: 'j2objcTestDebug', type: TestTask,
-                    dependsOn: ['test', 'debugTestJ2objcExecutable']) {
+                    dependsOn: ['test', 'testJ2objcDebugExecutable']) {
                 group 'verification'
                 // This transitively depends on the 'test' task from the java plugin
                 description 'Runs all tests in the generated Objective-C code'
                 buildType = 'Debug'
-                testBinaryFile = file("${buildDir}/binaries/testJ2objcExecutable/debug/testJ2objc")
+                testBinaryFile = file("${buildDir}/exe/testJ2objc/debug/testJ2objc")
             }
             tasks.create(name: 'j2objcTestRelease', type: TestTask,
-                    dependsOn: ['test', 'releaseTestJ2objcExecutable']) {
+                    dependsOn: ['test', 'testJ2objcReleaseExecutable']) {
                 group 'verification'
                 // This transitively depends on the 'test' task from the java plugin
                 description 'Runs all tests in the generated Objective-C code'
                 buildType = 'Release'
-                testBinaryFile = file("${buildDir}/binaries/testJ2objcExecutable/release/testJ2objc")
+                testBinaryFile = file("${buildDir}/exe/testJ2objc/release/testJ2objc")
             }
             // If both release and debug tests would run, run the debug tests first - ideally
             // the failure messages will be easier to understand (ex. Java line numbers).

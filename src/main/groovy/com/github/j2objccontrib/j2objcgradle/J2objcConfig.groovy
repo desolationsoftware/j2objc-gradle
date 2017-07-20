@@ -17,13 +17,13 @@
 package com.github.j2objccontrib.j2objcgradle
 
 import com.github.j2objccontrib.j2objcgradle.tasks.Utils
-import com.google.common.annotations.VisibleForTesting
 import groovy.transform.CompileStatic
 import groovy.transform.TypeCheckingMode
 import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.util.PatternSet
+import org.gradle.internal.impldep.com.google.common.annotations.VisibleForTesting
 import org.gradle.util.ConfigureUtil
 
 /**
