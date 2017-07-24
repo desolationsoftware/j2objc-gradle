@@ -59,7 +59,7 @@ class PackLibrariesTask extends DefaultTask {
     @TaskAction
     void packLibraries() {
         Utils.requireMacOSX('j2objcPackLibraries task')
-        assert buildType in ['debug', 'release']
+        assert buildType in ['Debug', 'Release']
 
         Utils.projectDelete(project, getOutputLibDirFile())
         getOutputLibDirFile().mkdirs()
