@@ -308,6 +308,7 @@ class NativeCompilation {
                                 args << 'Foundation'         // core ObjC classes: NSObject, NSString
                                 args << '-framework'
                                 args << 'Security'       // secure hash generation
+                                args << '-liconv'
                                 args.addAll(j2objcConfig.extraLinkerArgs)
                                 // J2ObjC provided libraries:
                                 // TODO: should we link to all? Or just the 'standard' J2ObjC libraries?
