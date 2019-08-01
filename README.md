@@ -1,5 +1,12 @@
 # J2ObjC Gradle Plugin
 
+## Changes from Original
+
+Original project's gradle version is 2.4. So, it cannot be complied with JDK11. 
+And it will be influenced some project which uses this project. So this repository bump up gradle version to 4.8.1.
+
+## General
+
 The __J2ObjC Gradle plugin__ enables Java source to be part of an iOS application's build
 so you can write an app's non-UI code (such as application logic and data models) in Java,
 which is then shared by Android apps (natively Java) and iOS apps (using J2ObjC).
@@ -16,8 +23,6 @@ Note that the plugin is currently in alpha; we may need to make breaking API cha
 before the 1.0 release.
 
 [![License](https://img.shields.io/badge/license-Apache%202.0%20License-blue.svg)](https://github.com/j2objc-contrib/j2objc-gradle/blob/master/LICENSE)
-[![OSX and Linux Build Status](https://img.shields.io/travis/j2objc-contrib/j2objc-gradle/master.svg?label=mac and linux build)](https://travis-ci.org/j2objc-contrib/j2objc-gradle)
-[![Windows Build Status](https://img.shields.io/appveyor/ci/madvayApiAccess/j2objc-gradle/master.svg?label=windows build)](https://ci.appveyor.com/project/madvayApiAccess/j2objc-gradle/branch/master)
 
 Home Page: https://github.com/j2objc-contrib/j2objc-gradle
 

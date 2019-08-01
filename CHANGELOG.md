@@ -26,6 +26,9 @@ Breaking changes/functionality:
 Code quality:
 * TBD
 
+## v0.7.0 (uakihir0)
+New functionality:
+* Bump up gradle version to 4.8.1. (for JDK11)
 
 ## v0.6.0-alpha
 New functionality:
