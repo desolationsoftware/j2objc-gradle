@@ -492,8 +492,7 @@ class J2objcConfig {
         // Given `j2objc.enabledArchs=` we will have one architecture of empty string,
         // instead we want no architectures at all in this case.
         enabledArchs.remove('')
-        List<String> invalidArchs = enabledArchs.minus(
-                NativeCompilation.ALL_IOS_ARCHS.clone() as List<String>).toList()
+        List<String> invalidArchs = enabledArchs - NativeCompilation.ALL_IOS_ARCHS.toList()
         if (!invalidArchs.isEmpty()) {
             throw new InvalidUserDataException("Invalid 'enabledArchs' entry: " + invalidArchs.join(', '))
         }

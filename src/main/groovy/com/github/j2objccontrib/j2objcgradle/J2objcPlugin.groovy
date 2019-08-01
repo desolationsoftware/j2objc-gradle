@@ -21,9 +21,11 @@ import com.github.j2objccontrib.j2objcgradle.tasks.AssembleResourcesTask
 import com.github.j2objccontrib.j2objcgradle.tasks.AssembleSourceTask
 import com.github.j2objccontrib.j2objcgradle.tasks.CycleFinderTask
 import com.github.j2objccontrib.j2objcgradle.tasks.PackLibrariesTask
+import com.github.j2objccontrib.j2objcgradle.tasks.PodspecTask
 import com.github.j2objccontrib.j2objcgradle.tasks.TestTask
 import com.github.j2objccontrib.j2objcgradle.tasks.TranslateTask
 import com.github.j2objccontrib.j2objcgradle.tasks.Utils
+import com.github.j2objccontrib.j2objcgradle.tasks.XcodeTask
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -228,7 +230,7 @@ class J2objcPlugin implements Plugin<Project> {
 
             // TODO: podspec support removed
             // Assemble podspec and update Xcode
-/*
+
             tasks.create(name: 'j2objcPodspec', type: PodspecTask,
                     dependsOn: ['j2objcPreBuild']) {
                 // podspec may reference resources that haven't yet been built
@@ -246,17 +248,6 @@ class J2objcPlugin implements Plugin<Project> {
             tasks.create(name: 'j2objcAssembleDebug', type: AssembleLibrariesTask,
                     dependsOn: ['j2objcPackLibrariesDebug', 'j2objcAssembleSource',
                                 'j2objcAssembleResources','j2objcXcode']) {
-                group 'build'
-                description 'Copies final generated source and debug libraries to assembly directories'
-                buildType = 'Debug'
-                srcLibDir = file("${buildDir}/binaries/${project.name}-j2objcStaticLibrary")
-                srcPackedLibDir = file("${buildDir}/packedBinaries/${project.name}-j2objcStaticLibrary")
-            }
-*/
-            // Assemble libaries
-            tasks.create(name: 'j2objcAssembleDebug', type: AssembleLibrariesTask,
-                    dependsOn: ['j2objcPackLibrariesDebug', 'j2objcAssembleSource',
-                                'j2objcAssembleResources']) {
                 group 'build'
                 description 'Copies final generated source and debug libraries to assembly directories'
                 buildType = 'Debug'
