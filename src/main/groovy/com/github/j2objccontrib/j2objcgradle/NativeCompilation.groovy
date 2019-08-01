@@ -117,6 +117,9 @@ class NativeCompilation {
                 linkerArgs += clangArgs
                 gccPlatformToolChain.objcCompiler.withArguments { List<String> args ->
                     args.addAll(compilerArgs)
+                    args.removeAll {
+                        it.startsWith('-isystem') || it.startsWith('/Library/Developer/')
+                    }
                 }
                 gccPlatformToolChain.objcppCompiler.withArguments { List<String> args ->
                     args.addAll(compilerArgs)
@@ -275,46 +278,51 @@ class NativeCompilation {
 
                 // We need to run clang with the arguments that j2objcc would usually pass.
                 // Only want to modify the Objective-C toolchain, not the JDK one.
-                toolChains {
-                    clang(Clang) {
-                        eachPlatform {
+                binaries {
+                    all {
+                        if (toolChain in Clang) {
                             String j2objcPath = Utils.j2objcHome(project)
+
                             // If you want to override the arguments passed to the compiler and linker,
                             // you must configure the binaries in your own build.gradle.
                             // See "Gradle User Guide: 54.11. Configuring the compiler, assembler and linker"
                             // https://docs.gradle.org/current/userguide/nativeBinaries.html#N16030
                             // TODO: Consider making this configuration easier using plugin extension.
                             // If we do that, however, we will become inconsistent with Gradle Objective-C building.
-                            objcCompiler.withArguments { args ->
-                                args << "-I$j2objcPath/include"
-                                args << '-Werror'
-                                args << '-Wno-parentheses'
-                                args << '-fno-strict-overflow'
-                                args << '-std=c11'
-                                args.addAll(j2objcConfig.extraObjcCompilerArgs)
-                                args << '-g'
-                                args << '-DDEBUG=1'
-                            }
-                            linker.withArguments { args ->
-                                args << '-ObjC'
-                                j2objcConfig.linkJ2objcLibs.each { String libArg ->
-                                    args << "-l$libArg"
-                                }
-                                // J2ObjC iOS library dependencies:
-                                args << '-lc++'                     // C++ runtime for protobuf runtime
-                                args << '-licucore'                 // java.text
-                                args << '-lz'                       // java.util.zip
-                                args << '-framework'
-                                args << 'Foundation'         // core ObjC classes: NSObject, NSString
-                                args << '-framework'
-                                args << 'Security'       // secure hash generation
-                                args << '-liconv'
-                                args.addAll(j2objcConfig.extraLinkerArgs)
-                                // J2ObjC provided libraries:
-                                // TODO: should we link to all? Or just the 'standard' J2ObjC libraries?
-                                args << '-ljre_emul'
+                            objcCompiler.args "-I$j2objcPath/include"
+                            objcCompiler.args '-Werror', '-Wno-parentheses', '-fno-strict-overflow'
+                            objcCompiler.args '-std=c11'
+                            objcCompiler.args j2objcConfig.extraObjcCompilerArgs
+
+                            linker.args '-ObjC'
+
+                            // J2ObjC provided libraries:
+                            // TODO: should we link to all? Or just the 'standard' J2ObjC libraries?
+                            linker.args '-ljre_emul'
+                            j2objcConfig.linkJ2objcLibs.each { String libArg ->
+                                linker.args "-l$libArg"
                             }
 
+                            // J2ObjC iOS library dependencies:
+                            linker.args '-lc++'                    // C++ runtime for protobuf runtime
+                            linker.args '-licucore'                // java.text
+                            linker.args '-lz'                      // java.util.zip
+                            linker.args '-framework', 'Foundation' // core ObjC classes: NSObject, NSString
+                            linker.args '-framework', 'Security'   // secure hash generation
+                            linker.args j2objcConfig.extraLinkerArgs
+
+                            if (buildType == buildTypes.debug) {
+                                // Full debugging information.
+                                objcCompiler.args '-g'
+                                objcCompiler.args '-DDEBUG=1'
+                            } else {  // release
+                                // Per https://raw.githubusercontent.com/llvm-mirror/clang/8eb384a97cfdc244a5ab81026677bcbaf8cf2ecf/docs/CommandGuide/clang.rst
+                                // this is a moderate level of optimization with extra optimizations
+                                // to reduce code size.  It's use in release builds was verified in Xcode 7,
+                                // and we aim to match the behavior, per:
+                                // https://developer.apple.com/library/ios/qa/qa1795/_index.html#//apple_ref/doc/uid/DTS40014195-CH1-COMPILER
+                                objcCompiler.args '-Os'
+                            }
                         }
                     }
                 }
