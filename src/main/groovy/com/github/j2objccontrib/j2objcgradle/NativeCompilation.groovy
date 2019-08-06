@@ -118,7 +118,7 @@ class NativeCompilation {
                 gccPlatformToolChain.objcCompiler.withArguments { List<String> args ->
                     args.addAll(compilerArgs)
                     args.removeAll {
-                        it.startsWith('-isystem') || it.startsWith('/Library/Developer/')
+                        it.startsWith('-isystem') || it.contains('/Toolchains/') || it.contains('/MacOSX.platform/')
                     }
                 }
                 gccPlatformToolChain.objcppCompiler.withArguments { List<String> args ->

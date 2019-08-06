@@ -52,7 +52,8 @@ class PackLibrariesTask extends DefaultTask {
 
     @OutputDirectory
     File getOutputLibDirFile() {
-        return project.file("${project.buildDir}/packedBinaries/${project.name}-j2objcStaticLibrary/ios$buildType")
+        String lowerCaseBuildType = buildType.toLowerCase()
+        return project.file("${project.buildDir}/packedLibs/${project.name}-j2objc/static/ios/$lowerCaseBuildType")
     }
 
 

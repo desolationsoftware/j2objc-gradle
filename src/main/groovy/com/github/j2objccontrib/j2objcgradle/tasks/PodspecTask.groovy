@@ -101,10 +101,10 @@ class PodspecTask extends DefaultTask {
         // podspec paths must be relative to podspec file, which is in buildDir
         String resourceIncludePath = Utils.relativizeNonParent(getDestPodspecDirFile(), getDestSrcMainResourcesDirFile())
         // iOS packed libraries are shared with watchOS
-        String libDirIosDebug = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'iosDebug'))
-        String libDirIosRelease = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'iosRelease'))
-        String libDirOsxDebug = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'x86_64Debug'))
-        String libDirOsxRelease = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'x86_64Release'))
+        String libDirIosDebug = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'ios/debug'))
+        String libDirIosRelease = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'ios/release'))
+        String libDirOsxDebug = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'x86_64/debug'))
+        String libDirOsxRelease = Utils.relativizeNonParent(getDestPodspecDirFile(), new File(getDestLibDirFile(), 'x86_64/release'))
 
         validateNumericVersion(getMinVersionIos(), 'minVersionIos')
         validateNumericVersion(getMinVersionOsx(), 'minVersionOsx')

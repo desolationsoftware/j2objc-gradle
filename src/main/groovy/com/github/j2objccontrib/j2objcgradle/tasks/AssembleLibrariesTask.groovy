@@ -47,7 +47,10 @@ class AssembleLibrariesTask extends DefaultTask {
     @Input
     String buildType
 
-    String getLibraryPattern() { return "*$buildType/*.a" }
+    String getLibraryPattern() {
+        String lowerCaseBuildType = buildType.toLowerCase()
+        return "**/$lowerCaseBuildType/*.a"
+    }
 
     File getDestLibDirFile() { return J2objcConfig.from(project).getDestLibDirFile() }
 
@@ -60,7 +63,8 @@ class AssembleLibrariesTask extends DefaultTask {
             @Override boolean accept(File pathname) {
                 // We care only about architecture directories (other files could be in here,
                 // like .DS_Store)
-                return pathname.isDirectory() && pathname.name.endsWith(buildType)
+                String lowerCaseBuildType = buildType.toLowerCase()
+                return pathname.isDirectory() && pathname.name.endsWith(lowerCaseBuildType)
             }
         }
         File[] filtered = srcLibDir.listFiles(filter)

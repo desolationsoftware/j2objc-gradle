@@ -251,8 +251,8 @@ class J2objcPlugin implements Plugin<Project> {
                 group 'build'
                 description 'Copies final generated source and debug libraries to assembly directories'
                 buildType = 'Debug'
-                srcLibDir = file("${buildDir}/binaries/${project.name}-j2objcStaticLibrary")
-                srcPackedLibDir = file("${buildDir}/packedBinaries/${project.name}-j2objcStaticLibrary")
+                srcLibDir = file("${buildDir}/libs/${project.name}-j2objc/static")
+                srcPackedLibDir = file("${buildDir}/packedLibs/${project.name}-j2objc/static")
             }
 
             tasks.create(name: 'j2objcAssembleRelease', type: AssembleLibrariesTask,
@@ -261,8 +261,8 @@ class J2objcPlugin implements Plugin<Project> {
                 group 'build'
                 description 'Copies final generated source and release libraries to assembly directories'
                 buildType = 'Release'
-                srcLibDir = file("${buildDir}/binaries/${project.name}-j2objcStaticLibrary")
-                srcPackedLibDir = file("${buildDir}/packedBinaries/${project.name}-j2objcStaticLibrary")
+                srcLibDir = file("${buildDir}/libs/${project.name}-j2objc/static")
+                srcPackedLibDir = file("${buildDir}/packedLibs/${project.name}-j2objc/static")
             }
             // Assemble final task
             tasks.create(name: 'j2objcAssemble', type: DefaultTask,
