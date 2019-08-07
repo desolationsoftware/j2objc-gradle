@@ -117,8 +117,12 @@ class NativeCompilation {
                 linkerArgs += clangArgs
                 gccPlatformToolChain.objcCompiler.withArguments { List<String> args ->
                     args.addAll(compilerArgs)
-                    args.removeAll {
-                        it.startsWith('-isystem') || it.contains('/Toolchains/') || it.contains('/MacOSX.platform/')
+
+                    while (true) {
+                        int index = args.lastIndexOf('-isystem')
+                        if (index < 0) break
+                        args.removeAt(index + 1)
+                        args.removeAt(index)
                     }
                 }
                 gccPlatformToolChain.objcppCompiler.withArguments { List<String> args ->
