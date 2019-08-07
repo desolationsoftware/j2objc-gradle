@@ -4,6 +4,8 @@
 
 Original project's gradle version is 2.4. So, it cannot be complied with JDK11. 
 And it will be influenced some project which uses this project. So this repository bump up gradle version to 4.8.1.
+This plugin has already published to gradle plugins, see [plugin page](https://plugins.gradle.org/plugin/net.socialhub.j2objccontrib.j2objcgradle).
+And [SocialHub](https://github.com/uakihir0/SocialHub) project uses this plugin to compile.
 
 ## General
 
@@ -45,7 +47,7 @@ Configure `shared/build.gradle` for your Java-only project:
 // File: shared/build.gradle
 plugins {
     id 'java'
-    id 'com.github.j2objccontrib.j2objcgradle' version '0.5.0-alpha'
+    id "net.socialhub.j2objccontrib.j2objcgradle" version "0.7.1"
 }
 
 dependencies {
