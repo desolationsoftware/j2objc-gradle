@@ -26,6 +26,11 @@ Breaking changes/functionality:
 Code quality:
 * TBD
 
+## v0.7.2 (uakihir0)
+Fixes:
+* Change linker to libtool for big project.
+* Apply #574 changes on packing files.
+
 ## v0.7.1 (uakihir0)
 Fixes:
 * Change binaries directories.
