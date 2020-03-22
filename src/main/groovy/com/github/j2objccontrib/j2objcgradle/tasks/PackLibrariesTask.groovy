@@ -68,6 +68,27 @@ class PackLibrariesTask extends DefaultTask {
         ByteArrayOutputStream stdout = new ByteArrayOutputStream()
         ByteArrayOutputStream stderr = new ByteArrayOutputStream()
 
+        // Source files arguments
+        List<String> srcFilesArgs = []
+        int srcFilesArgsCharCount = 0
+        for (File file in getLibrariesFiles()) {
+            String filePath = file.absolutePath
+            srcFilesArgs.add(filePath)
+            srcFilesArgsCharCount += filePath.length() + 1
+        }
+
+        // Handle command line that's too long
+        // Allow up to 2,000 characters for command line excluding src files
+        // http://docs.oracle.com/javase/7/docs/technotes/tools/windows/javac.html#commandlineargfile
+        if (srcFilesArgsCharCount + 2000 > Utils.maxArgs()) {
+            File srcFilesArgFile = new File(getTemporaryDir(), "link" + buildType + "SrcFilesArgFile");
+            FileWriter writer = new FileWriter(srcFilesArgFile);
+            writer.append(srcFilesArgs.join('\n'));
+            writer.close()
+            // Replace src file arguments by referencing file
+            srcFilesArgs = ["@${srcFilesArgFile.path}".toString()]
+        }
+
         try {
             Utils.projectExec(project, stdout, stderr, null, {
                 executable 'xcrun'
@@ -76,8 +97,9 @@ class PackLibrariesTask extends DefaultTask {
                 args '-create'
                 args '-output', project.file("${outputLibDirFile}/lib${project.name}-j2objc.a").absolutePath
 
-                getLibrariesFiles().each { File libFile ->
-                    args libFile.absolutePath
+                srcFilesArgs.each { String arg ->
+                    // Can be list of src files or a single @/../srcFilesArgFile reference
+                    args arg
                 }
 
                 setErrorOutput stdout
