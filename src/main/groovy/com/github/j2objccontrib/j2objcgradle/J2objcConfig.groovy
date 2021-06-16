@@ -447,11 +447,13 @@ class J2objcConfig {
      * Which architectures will be built and supported in packed ('fat') libraries.
      * <p/>
      * The three ios_arm* architectures are for iPhone and iPad devices, while
-     * ios_i386 and ios_x86_64 are for their simulators.
+     * ios_sim_i386, ios_sim_x86_64 and ios_sim_arm64 are for their simulators.
      * <p/>
      * By default, only common modern iOS architectures will be built:
-     * ios_arm64, ios_armv7, ios_x86_64.  You may choose to add any of the remaining
-     * entries from NativeCompilation.ALL_IOS_ARCHS (ios_i386 and ios_armv7s)
+     * ios_arm64, ios_armv7, ios_sim_x86_64. (for Intel Mac)
+     * You may choose to add any of the remaining
+     * entries from NativeCompilation.ALL_IOS_ARCHS
+     * (ios_sim_i386, ios_sim_arm64 and ios_armv7s)
      * to support all possible iOS architectures. Listing any new architectures outside of
      * ALL_IOS_ARCHS will fail the build.
      * <p/>
@@ -464,13 +466,14 @@ class J2objcConfig {
      * <ul>
      * <li>'ios_arm64' => iPhone 5S, 6, 6 Plus
      * <li>'ios_armv7' => iPhone 4, 4S, 5
-     * <li>'ios_i386' => iOS Simulator on 32-bit OS X
-     * <li>'ios_x86_64' => iOS Simulator on 64-bit OS X
+     * <li>'ios_sim_i386' => iOS Simulator on Intel 32-bit MacOS
+     * <li>'ios_sim_x86_64' => iOS Simulator on Intel 64-bit MacOS
+     * <li>'ios_sim_arm64' => iOS Simulator on AppleSilicon 64-bit MacOS
      * </ul>
      * @see NativeCompilation#ALL_IOS_ARCHS
      */
     // Public to allow assignment of array of targets as shown in example
-    List<String> supportedArchs = ['ios_arm64', 'ios_armv7', 'ios_x86_64']
+    List<String> supportedArchs = ['ios_arm64', 'ios_armv7', 'ios_sim_x86_64']
 
     /**
      * An architecture is active if it is both supported ({@link #supportedArchs})

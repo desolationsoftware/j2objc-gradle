@@ -32,7 +32,7 @@ j2objcConfig {
     // TODO: xcodeTargetsWatchos 'WATCH-APP', 'WATCH-APPTests'
 
     // For testing on the iPhone 5 simulator
-    supportedArchs += ['ios_i386']
+    supportedArchs += ['ios_sim_i386']
 
     finalConfigure()
 }

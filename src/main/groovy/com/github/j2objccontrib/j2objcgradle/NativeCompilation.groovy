@@ -42,9 +42,19 @@ import org.gradle.platform.base.Platform
  */
 class NativeCompilation {
 
-    static final String[] ALL_IOS_ARCHS = ['ios_arm64', 'ios_armv7', 'ios_armv7s', 'ios_i386', 'ios_x86_64']
+    static final String[] ALL_IOS_ARCHS = [
+            'ios_arm64',
+            'ios_armv7',
+            'ios_armv7s',
+            'ios_sim_i386',
+            'ios_sim_x86_64',
+            'ios_sim_arm64',
+    ]
     // TODO: Provide a mechanism to vary which OSX architectures are built.
-    static final String[] ALL_OSX_ARCHS = ['x86_64']
+    static final String[] ALL_OSX_ARCHS = [
+            'x86_64',
+            'arm64'
+    ]
 
     private final Project project
 
@@ -214,9 +224,11 @@ class NativeCompilation {
                         defineTarget(delegate, 'ios_arm64', TargetSpec.TARGET_IOS_DEVICE, 'arm64')
                         defineTarget(delegate, 'ios_armv7', TargetSpec.TARGET_IOS_DEVICE, 'armv7')
                         defineTarget(delegate, 'ios_armv7s', TargetSpec.TARGET_IOS_DEVICE, 'armv7s')
-                        defineTarget(delegate, 'ios_i386', TargetSpec.TARGET_IOS_SIMULATOR, 'i386')
-                        defineTarget(delegate, 'ios_x86_64', TargetSpec.TARGET_IOS_SIMULATOR, 'x86_64')
+                        defineTarget(delegate, 'ios_sim_i386', TargetSpec.TARGET_IOS_SIMULATOR, 'i386')
+                        defineTarget(delegate, 'ios_sim_x86_64', TargetSpec.TARGET_IOS_SIMULATOR, 'x86_64')
+                        defineTarget(delegate, 'ios_sim_arm64', TargetSpec.TARGET_IOS_SIMULATOR, 'arm64')
                         defineTarget(delegate, 'x86_64', TargetSpec.TARGET_OSX, 'x86_64')
+                        defineTarget(delegate, 'arm64', TargetSpec.TARGET_OSX, 'arm64')
                     }
                 }
                 platforms {
@@ -250,8 +262,9 @@ class NativeCompilation {
                             }
                             targetPlatform arch
                         }
-                        // Always need x86_64 for unit-testing on Mac.
-                        targetPlatform 'x86_64'
+                        // Always need them for unit-testing on Mac.
+                        targetPlatform 'x86_64' // for Intel Mac
+                        targetPlatform 'arm64' // for AppleSilicon Mac
 
                         // Resolve dependencies from all java j2objc projects using the compiled static libs.
                         binaries.all {
@@ -297,6 +310,7 @@ class NativeCompilation {
                             }
                         }
                         targetPlatform 'x86_64'
+                        targetPlatform 'arm64'
                     }
 
                 }

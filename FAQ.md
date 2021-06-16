@@ -670,7 +670,7 @@ devices), add the following to your build.gradle file:
 ```gradle
 // File: shared/build.gradle
 j2objcConfig {
-    supportedArchs += ['ios_i386']
+    supportedArchs += ['ios_sim_i386']
     ...
 }
 ```
