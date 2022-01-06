@@ -294,7 +294,7 @@ class J2objcConfig {
     List<String> translateJ2objcLibs = [
             // Comments indicate difference compared to standard libraries...
             // Memory annotations, e.g. @Weak, @AutoreleasePool
-            "j2objc_annotations.jar",
+            "j2objc_annotations.jar", "json.jar",
             // Libraries that have CycleFinder fixes, e.g. @Weak and code removal
             "j2objc_guava.jar", "j2objc_junit.jar", "jre_emul.jar",
             // Libraries that don't need CycleFinder fixes

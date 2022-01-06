@@ -47,7 +47,7 @@ Configure `shared/build.gradle` for your Java-only project:
 // File: shared/build.gradle
 plugins {
     id 'java'
-    id "net.socialhub.j2objccontrib.j2objcgradle" version "0.7.1"
+    id "net.socialhub.j2objccontrib.j2objcgradle" version "0.8.0"
 }
 
 dependencies {

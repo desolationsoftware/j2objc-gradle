@@ -23,7 +23,6 @@ import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.SimpleType
 import groovy.util.logging.Slf4j
 import org.gradle.api.InvalidUserDataException
-import org.gradle.api.Nullable
 import org.gradle.api.Project
 import org.gradle.api.file.CopySpec
 import org.gradle.api.file.FileCollection
@@ -40,6 +39,7 @@ import org.gradle.process.ExecSpec
 import org.gradle.process.internal.ExecException
 import org.gradle.util.GradleVersion
 
+import javax.annotation.Nullable
 import java.util.regex.Matcher
 
 /**

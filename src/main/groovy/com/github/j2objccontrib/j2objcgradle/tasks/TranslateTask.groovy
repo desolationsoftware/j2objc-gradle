@@ -363,6 +363,7 @@ class TranslateTask extends DefaultTask {
                 }
 
                 // Arguments
+                args "-Xlint:none"
                 args "-d", srcDir
                 args "-sourcepath", sourcepathArg
                 args "-classpath", classpathArg

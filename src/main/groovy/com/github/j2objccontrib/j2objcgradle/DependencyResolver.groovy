@@ -71,6 +71,7 @@ class DependencyResolver {
         project.configurations.getByName('j2objcTranslationClosure').each { File it ->
             // These are the resolved files, NOT the dependencies themselves.
             // Usually source jars.
+            project.configurations.detachedConfiguration().resolvedConfiguration
             visitTranslationClosureFile(it)
         }
         project.configurations.getByName('j2objcTranslation').each { File it ->

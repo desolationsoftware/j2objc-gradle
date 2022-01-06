@@ -23,6 +23,7 @@ import org.gradle.api.Project
 import org.gradle.api.artifacts.Dependency
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.artifacts.ProjectDependency
+import org.gradle.api.artifacts.ResolvedArtifact
 import org.gradle.api.artifacts.SelfResolvingDependency
 
 /**
@@ -68,6 +69,9 @@ class DependencyConverter {
         project.configurations.getByName('testCompile').dependencies.each {
             visit(it, true)
         }
+        project.configurations.getByName('compile').resolvedConfiguration.resolvedArtifacts.collect { artifact ->
+            visitExternalModuleDependency(artifact, false)
+        }
     }
 
     protected void visit(Dependency dep, boolean isTest) {
@@ -79,7 +83,7 @@ class DependencyConverter {
             visitSelfResolvingDependency(dep as SelfResolvingDependency, isTest)
         } else if (dep instanceof ExternalModuleDependency) {
             // ex. `compile "com.google.code.gson:gson:2.3.1"`
-            visitExternalModuleDependency(dep as ExternalModuleDependency, isTest)
+            // do nothing
         } else {
             // Everything else
             visitGenericDependency(dep, isTest)
@@ -110,22 +114,24 @@ class DependencyConverter {
                 dep.copy())
     }
 
-    protected void visitExternalModuleDependency(ExternalModuleDependency dep, boolean isTest) {
-        project.logger.debug("j2objc dependency converter: External module dep: $dep")
+    protected void visitExternalModuleDependency(ResolvedArtifact artifact, boolean isTest) {
+        project.logger.debug("j2objc dependency converter: External module dep: $artifact")
         // If the dep is already in the j2objc dist, ignore it.
-        if (J2OBJC_DEFAULT_LIBS.contains("${dep.group}:${dep.name}".toString())) {
+        if (J2OBJC_DEFAULT_LIBS.contains("${artifact.moduleVersion.id.group}:${artifact.moduleVersion.id.name}".toString())) {
             // TODO: A more correct method might be converting these into our own
             // form of SelfResolvingDependency that specifies which j2objc dist lib
             // to use.
-            project.logger.debug("-- Skipped J2OBJC_DEFAULT_LIB: $dep")
+            project.logger.debug("-- Skipped J2OBJC_DEFAULT_LIB: $artifact")
             return
         }
-        failOnBuildClosureForTests(dep, isTest)
-        project.logger.debug("-- Copied as source: $dep")
-        String group = dep.group == null ? '' : dep.group
-        String version = dep.version == null ? '' : dep.version
+        //failOnBuildClosureForTests(dep, isTest)
+        project.logger.debug("-- Copied as source: $artifact")
+        String name = artifact.moduleVersion.id.name
+        String group = artifact.moduleVersion.id.group == null ? '' : artifact.moduleVersion.id.group
+        String version = artifact.moduleVersion.id.version == null ? '' : artifact.moduleVersion.id.version
         // TODO: Make this less fragile.  What if sources don't exist for this artifact?
-        project.dependencies.add('j2objcTranslationClosure', "${group}:${dep.name}:${version}:sources")
+        project.logger.info("processing ${group}:${name}:${version}:sources")
+        project.dependencies.add('j2objcTranslationClosure', "${group}:${name}:${version}:sources")
     }
 
     protected void visitGenericDependency(Dependency dep, boolean isTest) {
