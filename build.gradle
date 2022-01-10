@@ -28,6 +28,7 @@ buildscript {
 }
 
 plugins {
+    id 'java-gradle-plugin'
     id 'maven-publish'
     id "com.gradle.plugin-publish" version "0.15.0"
 }
@@ -66,6 +67,15 @@ publishing {
     repositories {
         mavenLocal()
     }
+}
+
+gradlePlugin {
+  plugins {
+    j2objcPlugin {
+      id = 'org.sarsoft.j2objccontrib.j2objcgradle'
+      implementationClass = 'com.github.j2objccontrib.j2objcgradle.J2objcPlugin'
+    }
+  }
 }
 
 pluginBundle {

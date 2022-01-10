@@ -637,7 +637,7 @@ class J2objcConfig {
      */
     // Chosen to broaden compatibility for initial use
     // Maintain at one version behind current
-    String minVersionIos = '8.3'
+    String minVersionIos = '12.0'
 
     /**
      * The minimum OS X version to build against.  You cannot use APIs that are not supported
